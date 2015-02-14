@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"log/syslog"
 	"net/http"
 	"strconv"
 )
@@ -17,6 +18,8 @@ var opMap = map[string]op{
 }
 
 func main() {
+	lg, _ := syslog.New(syslog.LOG_LOCAL0, "math-http")
+	lg.Info("setting up handlers!")
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeHandler)
 
@@ -24,6 +27,7 @@ func main() {
 	pr.HandleFunc("/{operation}/", opHandler)
 
 	http.Handle("/", router)
+	lg.Info("Start serving requests")
 	http.ListenAndServe(":8000", nil)
 }
 
