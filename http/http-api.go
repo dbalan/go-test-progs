@@ -17,7 +17,9 @@ func (p Person) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello world")
+		w.Header().Set("cache-control", "public")
+		fmt.Printf("Method: %s\nURL: %s\nHeader: %s\nReqURI: %s \n", r.Method, r.URL, r.Header, r.RequestURI)
+
 	})
 	http.Handle("/foo", Person{"Bob"})
 
