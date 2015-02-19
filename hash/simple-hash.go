@@ -8,7 +8,7 @@ import (
 
 func md5Hash(s string) string {
 	h := md5.New()
-	io.WriteString(h, "hello md5 world")
+	io.WriteString(h, s)
 
 	// base-16, lowercase
 	return fmt.Sprintf("%x", h.Sum(nil))
@@ -17,3 +17,5 @@ func md5Hash(s string) string {
 func main() {
 	fmt.Println(md5Hash("Hello world"))
 }
+
+// Tests
